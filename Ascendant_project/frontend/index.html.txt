@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract X-Ray — Professional Document Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lucide/lab@latest/dist/lucide-lab.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo-group" onclick="setView('landing')">
+            <span class="logo-icon"><i data-lucide="scan-line" width="20" height="20"></i></span>
+            <span>Contract X-Ray</span>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+                <i data-lucide="sun" id="theme-icon" width="16" height="16"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="setView('dashboard')">Go to Console</button>
+        </div>
+    </header>
+
+    <main id="view-landing" class="app-view active">
+        <div class="landing-container">
+            <section class="hero">
+                <span class="badge badge-neutral" style="margin-bottom: 16px;">AI Document Intelligence v2.4</span>
+                <h1>Understand Contracts Before You Sign.</h1>
+                <p>Contract X-Ray automatically structuralizes and highlights critical risks, financial obligations, latent deadlines, and parity disparities in legal documents instantly.</p>
+                
+                <div class="upload-dropzone" onclick="triggerMockUpload()">
+                    <i data-lucide="upload-cloud" width="40" height="40"></i>
+                    <p style="font-weight: 500; font-size: 15px; margin-bottom: 6px;">Drop contract here or select file</p>
+                    <p style="color: var(--text-muted); font-size: 12px;">Supports PDF or DOCX format files up to 32MB</p>
+                    
+                    <div class="upload-progress-container" id="landing-progress-box">
+                        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                            <span id="upload-status-text">Parsing layout structures...</span>
+                            <span id="upload-pct">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="landing-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-grid">
+                <div class="glass-panel feat-card">
+                    <i data-lucide="shield-alert" width="24" height="24"></i>
+                    <h3>Risk Heatmapping</h3>
+                    <p>Colors are systematically overlaid directly onto contract prose highlighting elements needing severe scrutiny or standard consideration contextually.</p>
+                </div>
+                <div class="glass-panel feat-card">
+                    <i data-lucide="coins" width="24" height="24"></i>
+                    <h3>Financial Extractor</h3>
+                    <p>Isolates payment structures, collateral requirements, late penalties, recurring auto-renew fees, or termination cost matrices flawlessly.</p>
+                </div>
+                <div class="glass-panel feat-card">
+                    <i data-lucide="scale" width="24" height="24"></i>
+                    <h3>Parity Analysis</h3>
+                    <p>Evaluates visual structural fairness balance percentages between counterparties checking against traditional industry baselines.</p>
+                </div>
+            </section>
+
+            <footer class="security-banner">
+                <div class="sec-item"><i data-lucide="lock" width="14" height="14"></i> End-to-End Encryption</div>
+                <div class="sec-item"><i data-lucide="eye-off" width="14" height="14"></i> Transient Memory Stateless Parsing</div>
+                <div class="sec-item"><i data-lucide="database" width="14" height="14"></i> Excluded from LLM Base Model Training</div>
+            </footer>
+        </div>
+    </main>
+
+    <main id="view-dashboard" class="app-view">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <div class="nav-item active" onclick="switchDashboardTab('overview')">
+                    <i data-lucide="layout-dashboard" width="16" height="16"></i>
+                    <span>Analysis Overview</span>
+                </div>
+                <div class="nav-item" onclick="switchDashboardTab('clauses')">
+                    <i data-lucide="file-text" width="16" height="16"></i>
+                    <span>Detected Clauses</span>
+                </div>
+                <div class="nav-item" onclick="switchDashboardTab('finance')">
+                    <i data-lucide="dollar-sign" width="16" height="16"></i>
+                    <span>Financial Metrics</span>
+                </div>
+                <div class="nav-item" onclick="switchDashboardTab('timeline')">
+                    <i data-lucide="calendar" width="16" height="16"></i>
+                    <span>Milestones</span>
+                </div>
+                <div class="nav-item" onclick="switchDashboardTab('chat')">
+                    <i data-lucide="message-square" width="16" height="16"></i>
+                    <span>Interactive Q&A</span>
+                </div>
+            </aside>
+
+            <section class="main-workspace">
+                <div class="split-workspace">
+                    
+                    <div class="panel-left">
+                        <div class="glass-panel doc-viewer-card">
+                            <div class="doc-header">
+                                <div style="display:flex; flex-direction:column; gap:2px;">
+                                    <span style="font-size: 13px; font-weight: 600;" id="doc-title-display">Standard_Employment_Agreement.pdf</span>
+                                    <span style="font-size: 11px; color: var(--text-muted)">Verified Cryptographic Source Document Hash</span>
+                                </div>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="icon-btn" title="Zoom In"><i data-lucide="zoom-in" width="14" height="14"></i></button>
+                                    <button class="icon-btn" title="Download Export Report" onclick="alert('Exporting executive audit report summary package PDF...')"><i data-lucide="download" width="14" height="14"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="doc-pages-container">
+                                <div class="doc-page-mock" id="contract-document-page">
+                                    <h4 style="text-align:center; margin-bottom: 20px; font-size:14px; font-weight:700;">EMPLOYMENT & NON-COMPETE AGREEMENT</h4>
+                                    <p style="margin-bottom:12px;">This document is compiled on this date between the Employer and the executing Employee signatory.</p>
+                                    <p style="margin-bottom:12px;"><strong>Section 3. Remuneration Structure.</strong> The ongoing base structural compensation shall total exactly <span class="hl hl-green" onclick="focusInsight('finance')">$9,500 USD scheduled per calendar month</span> payable on trailing schedules.</p>
+                                    <p style="margin-bottom:12px;"><strong>Section 7. Restrictive Non-Compete Covenants.</strong> For a continuous temporal window duration tracking spanning <span class="hl hl-red" onclick="focusInsight('noncompete')">twenty-four (24) months post-separation</span>, the Executive strictly shall not engage directly or indirectly inside competitive markets globally.</p>
+                                    <p style="margin-bottom:12px;"><strong>Section 14. Dispute Resolution.</strong> Any transactional operational dispute actions arising during performance metrics operations execution phases <span class="hl hl-yellow" onclick="focusInsight('arbitration')">must proceed directly exclusively toward private binding arbitration tracks</span> managed through administrative forums, explicitly waiving formal jury rights.</p>
+                                    <p style="margin-bottom:12px;"><strong>Section 19. Term & Automatic Rollover.</strong> Unless structured separation termination steps execute exactly <span class="hl hl-yellow" onclick="focusInsight('renewal')">60 days prior to annual expirations</span>, the terms retain automatic binding successive rollover obligations.</p>
+                                </div>
+
+                                <div class="minimap-bar">
+                                    <div class="minimap-marker" style="top:25%; background:var(--risk-safe);" title="Compensation Vector"></div>
+                                    <div class="minimap-marker" style="top:42%; background:var(--risk-high);" title="High Risk Restrictive Provision"></div>
+                                    <div class="minimap-marker" style="top:65%; background:var(--risk-med);" title="Arbitration Forum Requirement"></div>
+                                    <div class="minimap-marker" style="top:82%; background:var(--risk-med);" title="Automatic Renewal Deadline Anchor"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-right">
+                        
+                        <div class="glass-panel toggle-banner">
+                            <div style="display:flex; flex-direction:column; gap:2px;">
+                                <span style="font-size:13px; font-weight:600;">Plain English Synthesizer Mode</span>
+                                <span style="font-size:11px; color:var(--text-muted);">De-obfuscate raw legal terminology layers dynamically</span>
+                            </div>
+                            <input type="checkbox" id="translation-toggle-input" onchange="togglePlainEnglish()" style="width:36px; height:20px; cursor:pointer;">
+                        </div>
+
+                        <div id="subtab-overview" class="subtab-content">
+                            <div class="matrix-grid">
+                                <div class="glass-panel matrix-stat">
+                                    <span class="matrix-label">Risk Profile Classification</span>
+                                    <span class="matrix-val" style="color:var(--risk-high)">Elevated / Med-High</span>
+                                </div>
+                                <div class="glass-panel matrix-stat">
+                                    <span class="matrix-label">Fairness Alignment Index</span>
+                                    <span class="matrix-val">62 / 100</span>
+                                </div>
+                                <div class="glass-panel matrix-stat">
+                                    <span class="matrix-label">System Interpretation Confidence</span>
+                                    <span class="matrix-val" style="color:var(--risk-safe)">94.2%</span>
+                                </div>
+                                <div class="glass-panel matrix-stat">
+                                    <span class="matrix-label">Approximate Baseline Parsing Run</span>
+                                    <span class="matrix-val">1.2 seconds</span>
+                                </div>
+                            </div>
+
+                            <div class="glass-panel" style="padding:20px; margin-bottom:20px;">
+                                <h4 style="font-size:14px; margin-bottom:10px; font-weight:600;">Executive Document Digest</h4>
+                                <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">This dynamic Executive Document structure acts primarily as an Executive Employment Agreement template framework. While general payment frameworks appear balanced and safe, severe risks exist via long tracking restrictive non-compete provisions and sweeping structural binding corporate arbitration loops.</p>
+                            </div>
+
+                            <div class="glass-panel" style="padding:20px;">
+                                <h4 style="font-size:14px; margin-bottom:12px; font-weight:600;">Structural Balance Analysis Framework</h4>
+                                <div class="fairness-bar-wrapper">
+                                    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:6px;">
+                                        <span>Corporate Entity Structural Control</span>
+                                        <span>68%</span>
+                                    </div>
+                                    <div class="fairness-track"><div class="fairness-alloc" style="width:68%; background:var(--accent);"></div></div>
+                                </div>
+                                <div class="fairness-bar-wrapper">
+                                    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:6px;">
+                                        <span>Signatory Counterparty Autonomy</span>
+                                        <span>32%</span>
+                                    </div>
+                                    <div class="fairness-track"><div class="fairness-alloc" style="width:32%; background:var(--risk-med);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="subtab-clauses" class="subtab-content" style="display:none;">
+                            <div class="glass-panel insight-card risk-high" id="insight-noncompete">
+                                <div class="insight-header">
+                                    <span class="insight-title">Non-Compete Covenant Restrictions</span>
+                                    <span class="badge badge-high">Critical Risk</span>
+                                </div>
+                                <p class="insight-desc" data-raw="Restricts trade operations inside competitive markets globally for 24 months post-separation tracking framework parameters.">Restricts trade operations inside competitive markets globally for 24 months post-separation tracking framework parameters.</p>
+                                <div class="quote-block">"For a continuous temporal window duration tracking spanning twenty-four (24) months post-separation..."</div>
+                            </div>
+
+                            <div class="glass-panel insight-card risk-med" id="insight-arbitration">
+                                <div class="insight-header">
+                                    <span class="insight-title">Mandatory Binding Arbitration Loop</span>
+                                    <span class="badge badge-med">Medium Warning</span>
+                                </div>
+                                <p class="insight-desc" data-raw="Waives the executing user's core sovereign constitutional right to pursue trial actions via standard public courtroom litigation routes.">Waives the executing user's core sovereign constitutional right to pursue trial actions via standard public courtroom litigation routes.</p>
+                                <div class="quote-block">"...must proceed directly exclusively toward private binding arbitration tracks managed through administrative forums..."</div>
+                            </div>
+
+                            <div class="glass-panel insight-card risk-med" id="insight-renewal">
+                                <div class="insight-header">
+                                    <span class="insight-title">Automatic Perpetual Rollover Window</span>
+                                    <span class="badge badge-med">Notice Tracking</span>
+                                </div>
+                                <p class="insight-desc" data-raw="Requires strict prior written notification 60 days in advance to successfully avoid automatic renewal.">Requires strict prior written notification 60 days in advance to successfully avoid automatic renewal.</p>
+                                <div class="quote-block">"Unless structured separation termination steps execute exactly 60 days prior..."</div>
+                            </div>
+                        </div>
+
+                        <div id="subtab-finance" class="subtab-content" style="display:none;">
+                            <div class="glass-panel insight-card risk-safe" id="insight-finance">
+                                <div class="insight-header">
+                                    <span class="insight-title">Ongoing Monthly Remuneration Matrix</span>
+                                    <span class="badge badge-safe">Verified Asset</span>
+                                </div>
+                                <p class="insight-desc" data-raw="Base compensation payout distribution mapping verified at $9,500.00 USD scheduled intervals monthly.">Base compensation payout distribution mapping verified at $9,500.00 USD scheduled intervals monthly.</p>
+                                <div class="quote-block">"...compensation shall total exactly $9,500 USD scheduled per calendar month..."</div>
+                            </div>
+                        </div>
+
+                        <div id="subtab-timeline" class="subtab-content" style="display:none;">
+                            <div class="glass-panel" style="padding:24px;">
+                                <h4 style="font-size:14px; margin-bottom:20px; font-weight:600;">Chronological Obligation Tracker</h4>
+                                <div style="display:flex; flex-direction:column; gap:20px; position:relative; padding-left:24px;">
+                                    <div style="position:absolute; left:4px; top:4px; bottom:4px; width:2px; background:var(--border-subtle);"></div>
+                                    
+                                    <div style="position:relative;">
+                                        <div style="position:absolute; left:-24px; top:2px; width:10px; height:10px; border-radius:50%; background:var(--accent);"></div>
+                                        <div style="font-size:13px; font-weight:600;">Day 1 Execution Phase</div>
+                                        <div style="font-size:12px; color:var(--text-muted);">Contract parameters engage instantly.</div>
+                                    </div>
+                                    <div style="position:relative;">
+                                        <div style="position:absolute; left:-24px; top:2px; width:10px; height:10px; border-radius:50%; background:var(--risk-med);"></div>
+                                        <div style="font-size:13px; font-weight:600;">T-Minus 60 Days Out</div>
+                                        <div style="font-size:12px; color:var(--text-muted);">Hard legal absolute boundary window to notify of termination intention before automatic rollover triggers.</div>
+                                    </div>
+                                    <div style="position:relative;">
+                                        <div style="position:absolute; left:-24px; top:2px; width:10px; height:10px; border-radius:50%; background:var(--risk-high);"></div>
+                                        <div style="font-size:13px; font-weight:600;">Post-Separation Tracking (+24 Months)</div>
+                                        <div style="font-size:12px; color:var(--text-muted);">Active duration span enforcing Global Non-Compete marketplace trade prohibitions.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="subtab-chat" class="subtab-content" style="display:none;">
+                            <div class="chat-panel">
+                                <div class="chat-history" id="chat-scroller">
+                                    <div class="chat-msg assistant">
+                                        Hello. I have fully indexed this legal document structure. You can ask structural extraction logic questions or target critical verification variables below.
+                                    </div>
+                                </div>
+                                <div class="chat-input-row">
+                                    <input type="text" class="chat-input" id="user-chat-field" placeholder="Ask the document structural questions..." onkeydown="if(event.key==='Enter') executeMockChatQuery()">
+                                    <button class="btn" onclick="executeMockChatQuery()"><i data-lucide="send" width="14" height="14"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

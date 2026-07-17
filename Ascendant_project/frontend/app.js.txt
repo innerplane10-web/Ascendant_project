@@ -1,0 +1,141 @@
+// System View Routing Engine
+function setView(viewTarget) {
+    document.querySelectorAll('.app-view').forEach(viewElement => viewElement.classList.remove('active'));
+    const destinationElement = document.getElementById(`view-${viewTarget}`);
+    if (destinationElement) destinationElement.classList.add('active');
+}
+
+// Dashboard Left Navigation Context Switch Engine
+function switchDashboardTab(subTabKey) {
+    document.querySelectorAll('.nav-item').forEach(navButton => navButton.classList.remove('active'));
+    document.querySelectorAll('.subtab-content').forEach(panelContent => panelContent.style.display = 'none');
+    
+    const targetedContentPanel = document.getElementById(`subtab-${subTabKey}`);
+    if (targetedContentPanel) targetedContentPanel.style.display = 'block';
+    
+    const activeSidebarButton = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(subTabKey));
+    if (activeSidebarButton) activeSidebarButton.classList.add('active');
+}
+
+// Direct Target Jump Link Functionality
+function focusInsight(elementTargetId) {
+    switchDashboardTab('clauses');
+    if (elementTargetId === 'finance') switchDashboardTab('finance');
+    
+    const highlightTargetBlock = document.getElementById(`insight-${elementTargetId}`);
+    if (highlightTargetBlock) {
+        highlightTargetBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        highlightTargetBlock.style.outline = "2px solid var(--accent)";
+        setTimeout(() => highlightTargetBlock.style.outline = "none", 2000);
+    }
+}
+
+// Dark / Light Mode Rendering Switcher
+function toggleTheme() {
+    const bodyStyleElement = document.body;
+    const configurationIcon = document.getElementById('theme-icon');
+    
+    if (bodyStyleElement.classList.contains('light-mode')) {
+        bodyStyleElement.classList.remove('light-mode');
+        configurationIcon.setAttribute('data-lucide', 'sun');
+    } else {
+        bodyStyleElement.classList.add('light-mode');
+        configurationIcon.setAttribute('data-lucide', 'moon');
+    }
+    lucide.createIcons();
+}
+
+// Mock Landing Upload Structural Progression
+function triggerMockUpload() {
+    const landingProgressContainer = document.getElementById('landing-progress-box');
+    const landingProgressBarFill = document.getElementById('landing-progress-bar');
+    const statusLabelElement = document.getElementById('upload-status-text');
+    const percentageLabelElement = document.getElementById('upload-pct');
+    
+    landingProgressContainer.style.display = 'block';
+    let activePercentage = 0;
+    
+    const processingTimer = setInterval(() => {
+        activePercentage += 4;
+        if (activePercentage <= 35) {
+            statusLabelElement.innerText = "Parsing contract structure layout models...";
+        } else if (activePercentage <= 70) {
+            statusLabelElement.innerText = "Evaluating risk parameters and clauses...";
+        } else if (activePercentage <= 95) {
+            statusLabelElement.innerText = "Generating natural language summary sheets...";
+        }
+        
+        landingProgressBarFill.style.width = `${activePercentage}%`;
+        percentageLabelElement.innerText = `${activePercentage}%`;
+        
+        if (activePercentage >= 100) {
+            clearInterval(processingTimer);
+            setView('dashboard');
+            switchDashboardTab('overview');
+        }
+    }, 80);
+}
+
+// Plain English Mode Layer Switcher Engine
+function togglePlainEnglish() {
+    const translationToggleInput = document.getElementById('translation-toggle-input');
+    const insightsTargetArray = document.querySelectorAll('.insight-desc');
+    
+    const simplifiedTranslationsMap = {
+        "Restricts trade operations inside competitive markets globally for 24 months post-separation tracking framework parameters.": "Simplified: You aren't allowed to work for competitors globally for 2 years after leaving this role.",
+        "Waives the executing user's core sovereign constitutional right to pursue trial actions via standard public courtroom litigation routes.": "Simplified: If you have a legal issue, you must resolve it privately in arbitration instead of taking the company to court.",
+        "Requires strict prior written notification 60 days in advance to successfully avoid automatic renewal.": "Simplified: If you don't cancel this contract at least 60 days before the year ends, it auto-renews for another full year.",
+        "Base compensation payout distribution mapping verified at $9,500.00 USD scheduled intervals monthly.": "Simplified: You will be paid exactly $9,500 USD every month."
+    };
+
+    insightsTargetArray.forEach(descriptionElement => {
+        const structuralRawTextKey = descriptionElement.getAttribute('data-raw');
+        if (translationToggleInput.checked) {
+            if (simplifiedTranslationsMap[structuralRawTextKey]) {
+                descriptionElement.innerText = simplifiedTranslationsMap[structuralRawTextKey];
+                descriptionElement.style.color = "var(--accent)";
+            }
+        } else {
+            descriptionElement.innerText = structuralRawTextKey;
+            descriptionElement.style.color = "var(--text-secondary)";
+        }
+    });
+}
+
+// Dialogue Engine Mock Interface
+function executeMockChatQuery() {
+    const chatFieldInputField = document.getElementById('user-chat-field');
+    const chatScrollerContainer = document.getElementById('chat-scroller');
+    const targetQueryValueString = chatFieldInputField.value.trim();
+    
+    if (!targetQueryValueString) return;
+    
+    const userMessageBubble = document.createElement('div');
+    userMessageBubble.className = 'chat-msg user';
+    userMessageBubble.innerText = targetQueryValueString;
+    chatScrollerContainer.appendChild(userMessageBubble);
+    
+    chatFieldInputField.value = '';
+    chatScrollerContainer.scrollTop = chatScrollerContainer.scrollHeight;
+    
+    setTimeout(() => {
+        const assistantResponseBubble = document.createElement('div');
+        assistantResponseBubble.className = 'chat-msg assistant';
+        
+        const normalQueryToken = targetQueryValueString.toLowerCase();
+        if (normalQueryToken.includes('compete') || normalQueryToken.includes('leave')) {
+            assistantResponseBubble.innerHTML = `<strong>Section 7</strong> mandates a restrictive 24-month non-compete constraint globally post-separation. <span style="color:var(--risk-high); font-weight:600;">[Confidence 98%]</span>`;
+        } else if (normalQueryToken.includes('pay') || normalQueryToken.includes('salary') || normalQueryToken.includes('money')) {
+            assistantResponseBubble.innerHTML = `<strong>Section 3</strong> establishes standard compensation parameters equal to $9,500 USD per calendar month. <span style="color:var(--risk-safe); font-weight:600;">[Confidence 99%]</span>`;
+        } else {
+            assistantResponseBubble.innerHTML = `I detected your reference query variables. Review the core metrics maps embedded in the left-hand page layout viewports or adjust parameters. <span style="color:var(--text-muted);">[Confidence 85%]</span>`;
+        }
+        
+        chatScrollerContainer.appendChild(assistantResponseBubble);
+        chatScrollerContainer.scrollTop = chatScrollerContainer.scrollHeight;
+    }, 600);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    lucide.createIcons();
+});
